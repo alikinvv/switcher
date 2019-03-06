@@ -77,7 +77,7 @@ $(function () {
                     zIndex: {
                         value: [1, 2],
                         round: true
-                      },
+                    },
                     duration: 0
                 })
                 anime({ 
@@ -85,7 +85,7 @@ $(function () {
                     zIndex: {
                         value: [2, 1],
                         round: true
-                      },
+                    },
                     duration: 0
                 })
     
@@ -105,5 +105,75 @@ $(function () {
                 })
             }
         }
+    });
+
+
+    
+
+    var zindex = 2;
+    var t = true;
+    $('body').on('click', '.switcher label', function () {
+        if (t) {
+            t = false;
+            $('.switcher').toggleClass('active');
+            zindex++;
+
+            if ($('.switcher').hasClass('active')) {
+                anime({
+                    targets: '.switcher .left',
+                    scale: 12,
+                    duration: 500,
+                    easing: 'easeInOutQuad',
+                    complete: function () {
+                        anime({
+                            targets: '.switcher .right',
+                            scale: 0,
+                            zIndex: {
+                                value: [zindex, zindex++],
+                                round: true
+                            },
+                            duration: 0
+                        });
+
+                        anime({
+                            targets: '.switcher .right',
+                            scale: 1,
+                            duration: 700,
+                            complete: function () {
+                                t = true;
+                            }
+                        });                        
+                    }
+                })
+            } else {
+                anime({
+                    targets: '.switcher .right',
+                    scale: 12,
+                    duration: 500,
+                    easing: 'easeInOutQuad',
+                    complete: function () {
+                        anime({
+                            targets: '.switcher .left',
+                            scale: 0,
+                            zIndex: {
+                                value: [zindex, zindex++],
+                                round: true
+                            },
+                            duration: 0
+                        });
+
+                        anime({
+                            targets: '.switcher .left',
+                            scale: 1,
+                            duration: 700,
+                            complete: function () {
+                                t = true;
+                            }
+                        });
+                    }
+                })
+            }
+        }
+       
     });
 });

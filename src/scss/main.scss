@@ -130,18 +130,6 @@ body {
 	background-clip: content-box;
 	margin-bottom: 20px;
 
-	&.active {
-		.on span {
-			transform: translateX(40px) translateY(-50%);
-			opacity: 0;
-		}
-
-		.off span {
-			transform: translateX(0) translateY(-50%);
-			opacity: 1;
-		}
-	}
-
 	input {
 		opacity: 0;
 		pointer-events: none;
@@ -175,9 +163,9 @@ body {
 			left: 25px;
 			top: 50%;
 			transform: translateX(0) translateY(-50%);
-			opacity: 1;
 			transition: all 500ms ease-in-out;
 			transition-delay: 200ms;
+			user-select: none;
 		}
 	}
 
@@ -199,10 +187,10 @@ body {
 			position: absolute;
 			right: 25px;
 			top: 50%;
-			transform: translateX(-40px) translateY(-50%);
+			transform: translateX(0) translateY(-50%);
 			transition: all 500ms ease-in-out;
 			transition-delay: 200ms;
-			opacity: 0;
+			user-select: none;
 		}
 	}
 }
@@ -219,24 +207,41 @@ body {
 	font-size: 21px;
 	position: relative;
 	transition: all .5s ease-in-out;
+	overflow: hidden;
+	border-radius: 100px;
+	cursor: pointer;
 
 	input {
 		opacity: 0;
 		pointer-events: none;
+	}
 
-		&:checked {
-			background: #fff;
+	.left {
+		position: absolute;
+		top: 20px;
+		left: 22px;
+		width: 16px;
+		height: 16px;
+		transform-origin: 50%;
+		border-radius: 50%;
+		background: #fff;
+		z-index: 2;
+		pointer-events: none;
+	}
 
-			& + label {
-				&::before {
-					animation: before 1s ease-in-out 0s forwards;
-				}
-
-				&::after {
-					animation: after 1s ease-in-out 1s forwards;
-				}
-			}
-		}
+	.right {
+		content: '';
+		position: absolute;
+		top: 20px;
+		transform: scale(12);
+		right: 20px;
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+		transform-origin: 50%;
+		z-index: 1;
+		background: #1e1e1e;
+		pointer-events: none;
 	}
 
 	label {
@@ -245,82 +250,8 @@ body {
 		left: 0;
 		height: 100%;
 		width: 100%;
-		cursor: pointer;
-		z-index: 3;
-		overflow: hidden;
 		border-radius: 100px;
-		background: #1e1e1e;
-		transition-delay: 1s;
-
-		&::before {
-			content: '';
-			position: absolute;
-			top: 50%;
-			transform: translateY(-50%) translateX(-50%);
-			left: 22px;
-			width: 16px;
-			height: 16px;
-			transform-origin: 50%;
-			border-radius: 50%;
-			background: #fff;
-			z-index: 2;
-			transition: all 1s ease-in-out;
-		}
-
-		&::after {
-			content: '';
-			position: absolute;
-			top: 50%;
-			transform: translateY(-50%) translateX(-50%) scale(19);
-			left: 87px;
-			width: 16px;
-			height: 16px;
-			border-radius: 50%;
-			transform-origin: 50%;
-			z-index: 1;
-			transition: all 1s ease-in-out;
-		}
-	}
-}
-
-@keyframes after {
-	0% {
-		background: #1e1e1e;
-		z-index: 2;
-		transform: translateY(-50%) translateX(-50%) scale(0);
-	}
-
-	100% {
-		background: #1e1e1e;
-		z-index: 2;
-		transform: translateY(-50%) translateX(-50%) scale(1);
-	}
-}
-
-@keyframes before {
-	0% {
-		background: #fff;
-		z-index: 2;
-		transform: translateY(-50%) translateX(-50%) scale(1);
-	}
-
-	100% {
-		background: #fff;
-		z-index: 2;
-		transform: translateY(-50%) translateX(-50%) scale(19);
-	}
-}
-
-@keyframes zoom {
-	0% {
-		background: #fff;
-		z-index: 2;
-		transform: translateY(-50%) translateX(-50%) scale(19);
-	}
-
-	100% {
-		background: #fff;
-		z-index: 2;
-		transform: translateY(-50%) translateX(-50%) scale(19);
+		z-index: 10;
+		cursor: pointer;
 	}
 }
